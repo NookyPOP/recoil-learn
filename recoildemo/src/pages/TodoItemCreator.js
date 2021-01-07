@@ -7,6 +7,7 @@ export default function TodoItemCreator() {
   // 使用 设置状态的hook函数 useSetRecoilState，参数为一个需要更改的状态，函数返回一个set函数，可以更新totoListState的值
   const setTodoList = useSetRecoilState(todoListState)
   //  添加item todo 使用setTodoList函数，传递一个函数A，函数A的参数为useSetRecoilState Hook传递的初始值
+  //  useSetRecoilState Hook 可以接收到的参数为值或函数（函数的参数为上一个值）
   const addItem = () => {
     setTodoList((oldTodoList) => [
       // 上一个值
