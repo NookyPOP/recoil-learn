@@ -1,6 +1,8 @@
 import React from 'react'
 import TodoItemCreator from './TodoItemCreator'
 import TodoItem from './TodoItem'
+import TodoListStats from './TodoListStatic'
+import TodoListFilters from './TodoListFiters'
 
 import { useRecoilValue } from 'recoil'
 import { todoListState } from '../store'
@@ -9,8 +11,8 @@ export default function TodoList() {
 
   return (
     <>
-      {/* <TodoListStats /> */}
-      {/* <TodoListFilters /> */}
+      <TodoListStats />
+      <TodoListFilters />
       <TodoItemCreator />
       {todoList.map((todoItem) => (
         <TodoItem key={todoItem.id} item={todoItem} />
