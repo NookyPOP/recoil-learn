@@ -6,7 +6,7 @@ export const todoListState = atom({
   default: [
     {
       id: +new Date(),
-      text: 'do what do you want ',
+      text: 'just do what do you want ',
       isComplete: true
     }
   ] // 默认值
@@ -20,17 +20,18 @@ export const todoListFilterState = atom({
 // selector的 filteredTodoListState 依赖todoListState和todoListFilterState这两个状态，如果这两个状态改变了，filteredTodoListState就是重新运行得到
 export const filteredTodoListState = selector({
   key: 'filteredTodoListState',
-  get: ({ get }) => {
-    const list = get(todoListState)
-    const filter = get(todoListFilterState)
-    switch (filter) {
-      case 'Show Completed':
-        return list.filter((item) => item.isComplete)
-      case 'Show UnCompleted':
-        return list.filter((item) => !item.isComplete)
-      default:
-        return list
-    }
+  get: (all) => {
+    console.log('all', all)
+    // const list = get(todoListState)
+    // const filter = get(todoListFilterState)
+    // switch (filter) {
+    //   case 'Show Completed':
+    //     return list.filter((item) => item.isComplete)
+    //   case 'Show UnCompleted':
+    //     return list.filter((item) => !item.isComplete)
+    //   default:
+    //     return list
+    // }
   }
 })
 
@@ -54,5 +55,51 @@ export const todoListStatsState = selector({
       totalUncompletedNum,
       percentCompleted
     }
+  },
+  // 可以设置值
+  set: ({ set }, newValue) => {
+    // newValue 为结构出的setText(111)传的值
+    console.log('newValue', newValue)
+    set(todoListState, [
+      {
+        id: +new Date(),
+        text: 'do what do you want ',
+        isComplete: true
+      },
+      {
+        id: +new Date(),
+        text: 'running',
+        isComplete: true
+      }
+    ])
+  }
+})
+
+const myDBQuery = ({ id }) => {
+  const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // reject('fail000000000')
+      resolve({ name: 'jack' })
+    }, 2000)
+  })
+  console.log('p', p)
+  return p
+}
+export const currentUserIDState = atom({
+  key: 'CurrentUserID',
+  default: 1
+})
+// selector 异步的数据
+export const currentUserNameQuery = selector({
+  key: 'CurrentUserName',
+  get: async ({ get }) => {
+    const response = await myDBQuery({
+      userID: get(currentUserIDState)
+    })
+    console.log('response', response)
+    if (response.error) {
+      throw response.error
+    }
+    return response.name
   }
 })

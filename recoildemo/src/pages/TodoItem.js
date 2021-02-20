@@ -10,8 +10,10 @@ export default function TodoItem({ item }) {
   const index = todoList.findIndex((listItem) => listItem === item)
   // 根据props item 可以找到当前的item的index
 
+  //  编辑todoitem的函数
   const editItemText = ({ target: { value } }) => {
     // 结构出来事件对象 event
+    // 调用replaceItemIndex 处理更改list
     const newList = replaceItemAtIndex(todoList, index, {
       ...item,
       text: value
@@ -19,7 +21,7 @@ export default function TodoItem({ item }) {
     // 更新state
     setTodoList(newList)
   }
-
+  // 切换当前的todoite是否完成，改变 isComplete
   const toggleItemCompletion = () => {
     const newList = replaceItemAtIndex(todoList, index, {
       ...item,
@@ -49,6 +51,7 @@ export default function TodoItem({ item }) {
 }
 
 function replaceItemAtIndex(arr, index, newValue) {
+  // 使用数组的slice函数 截取
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)]
 }
 

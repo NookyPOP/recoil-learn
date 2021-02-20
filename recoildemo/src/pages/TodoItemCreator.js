@@ -39,3 +39,15 @@ let id = 0
 function getId() {
   return id++
 }
+
+// 订阅者，观察者
+
+// selector的 多层嵌套，父selector的使用set ，get；子组件的使用父组件的selector，
+// 每个页面也可以使用单独的atom，selector；
+// 易读性，eslint
+
+/* 
+
+1,使用多个atom，计算selector的值
+2,单个的atom，计算selector的值
+*/
